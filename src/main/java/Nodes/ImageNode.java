@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class ImageNode extends NodeType {
     
-    private List<ImageNode> imageList;
+    private List<Image()> imageList;
     private String id;
     private String originalImagePath;
     private String invertedImagePath;
@@ -13,9 +13,10 @@ public class ImageNode extends NodeType {
     private List<ImageNode> children = new ArrayList()<Image>();
     
     public void verifyImageNode() {
-    private int nodes; // e.g., for example, "Image" or "Folder"
-    protected String originalImagePath;
-    public boolean isInverted() { return this.isInverted(); 
+        private int nodes; // e.g., for example, "Image" or "Folder"
+        protected String originalImagePath;
+    public boolean isInverted() { return this.isInverted(); {
    
     }}
 }
+

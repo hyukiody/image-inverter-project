@@ -1,27 +1,32 @@
 package Nodes;
 
+package Image;
+
 import java.Exception.IoException;
 import java.awt.ComponentOrientation;
+
 import javax.xml.crypto.Data;
 
-public class NodeType throws Exception
-{
-    private String id;
-    private String originalImagePath;
-    private String invertedImagePath;
+public NodeType() extends Image throws Exception(){
+    private NodeType() = new newNode{
+            private String id;
+            private String originalImagePath;
+            private String invertedImagePath;
 
-    public rNode()= new NodeType() instanceof.this();
-    public lNode()= new NodeType() instanceof.this();
+            public rNode() 
+                = new NodeType() this(). instanceof ();
+
+            public lNode() 
+                = new NodeType() this(). instanceof ();
     
+            private Data data();
+            private String name;
 
-    private Data data();
-    private String name;
-
-    private boolean isBranch() {
-        return ComponentOrientation.LEFT_TO_RIGHT == null & ComponentOrientation.RIGHT_TO_LEFT == null;
+            private boolean isBranch() {
+                return ComponentOrientation.LEFT_TO_RIGHT == null & ComponentOrientation.RIGHT_TO_LEFT == null;
+            }
+    public void noException(doc) {
+                String data_string_token = new data(doc);
+            }
+        }
     }
-    
-    void noException(doc){
-        String data_string_token = new data(doc);
-    }
-}
