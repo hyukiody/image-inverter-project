@@ -20,18 +20,20 @@ public class ImageService {
     }
 
     public byte[] processAndSave(MultipartFile file) throws IOException {
-        // 1. Ler imagem
+        // 1. Read Image
         BufferedImage originalInfo = ImageIO.read(file.getInputStream());
+        if (originalInfo == null) {
+            throw new IOException("Invalid image file");
+        }
         
-        // 2. Inverter (Usando sua lógica XOR) 
         BufferedImage invertedInfo = invertColors(originalInfo);
 
-        // 3. Converter para bytes
+        // 3. Convert to Bytes
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ImageIO.write(invertedInfo, "png", baos);
         byte[] invertedBytes = baos.toByteArray();
 
-        // 4. Salvar no Banco
+        // 4. Save to Database
         ImageRecord record = new ImageRecord();
         record.setFileName(file.getOriginalFilename());
         record.setProcessedAt(LocalDateTime.now());
@@ -46,14 +48,17 @@ public class ImageService {
     private BufferedImage invertColors(BufferedImage image) {
         int width = image.getWidth();
         int height = image.getHeight();
-        BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        // Use TYPE_INT_ARGB to support transparency
+        BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                int rgba = image.getRGB(x, y);
-                // Sua lógica XOR 
-                int col = (rgba & 0x00FFFFFF) ^ 0xFFFFFF; 
-                result.setRGB(x, y, col);
+                int rgba = image.getRGB(x, y); // Fixed: Was missing in your upload
+                
+                int alpha = rgba & 0xFF000000; // Keep Alpha
+                int colors = (rgba & 0x00FFFFFF) ^ 0xFFFFFF; // Invert Colors
+                
+                result.setRGB(x, y, alpha | colors);
             }
         }
         return result;

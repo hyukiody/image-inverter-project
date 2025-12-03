@@ -14,7 +14,7 @@ public class ImageInverter {
         // Create a new image for the result
         BufferedImage invertedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        // Loop through every pixel
+        // Loop through every pixel		
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 
