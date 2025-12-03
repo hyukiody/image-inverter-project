@@ -39,14 +39,15 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- 4. Lombok (Optional Helper, in lack for fast convertion) -->
+        <!-- 4. Lombok (Optional Helper) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
-        <!-- 5. TEST SUITE-->
+        <!-- 5. TEST SUITE (Fixes your errors) -->
+        <!-- Contains: @SpringBootTest, MockMultipartFile, JUnit 5 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
