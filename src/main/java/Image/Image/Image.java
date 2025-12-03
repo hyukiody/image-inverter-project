@@ -1,4 +1,4 @@
-package Image;
+/**package Image;
 
 import javax.swing.text.JTextComponent;
 
@@ -8,3 +8,4 @@ public class Image extends JTextComponent.KeyBinding()
             public Image img = this.KeyBinding(imageKey.length,imageKey.wait());    
     
 }
+*/
