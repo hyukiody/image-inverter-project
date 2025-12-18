@@ -1,16 +1,24 @@
 # Image Inverter Project
 
-## Overview
+A Spring Boot REST API application for image inversion with comprehensive testing and documentation.
 
-The **Image Inverter** is a Java application that provides REST API endpoints to invert images. The application is built with Spring Boot and follows a modern REST architecture inspired by the JBoss helloworld-rs quickstart pattern.
+## Quick Navigation
 
-The application features:
-- **REST API endpoints** for image inversion in multiple formats (PNG binary, JSON, XML)
-- **Spring Boot** for lightweight and flexible deployment
+- **[Setup Guide](docs/setup/SETUP_GUIDE.md)** - Installation and environment setup
+- **[REST API Reference](docs/api/REST_API.md)** - Complete API endpoint documentation
+- **[Architecture Guide](docs/architecture/)** - System design and architecture
+- **[Full Documentation](docs/README.md)** - Documentation hub
+
+## Project Overview
+
+The **Image Inverter** is a Java REST API application that provides endpoints to invert images. It features:
+- **REST API endpoints** for image inversion in multiple formats (PNG binary, JSON)
+- **Spring Boot 3.2.0** for lightweight and flexible deployment
 - **Multiple response formats** following REST best practices
 - **CORS support** for cross-origin requests
-- **Error handling** with consistent error responses
+- **Comprehensive error handling** with consistent error responses
 - **Health check and info endpoints** for API monitoring
+- **Full test coverage** with JUnit 5
 
 ## Quick Start
 
