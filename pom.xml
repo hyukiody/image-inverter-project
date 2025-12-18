@@ -46,7 +46,19 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- 5. TEST SUITE (Fixes your errors) -->
+        <!-- 5. XML Support for REST API -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+        </dependency>
+
+        <!-- 6. Spring Boot Actuator for health/info endpoints -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- 7. TEST SUITE (Fixes your errors) -->
         <!-- Contains: @SpringBootTest, MockMultipartFile, JUnit 5 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

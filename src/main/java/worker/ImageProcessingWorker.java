@@ -1,9 +1,10 @@
 package worker;
 
-import util.ImageProcessor;
 import java.awt.image.BufferedImage;
 import java.util.function.Consumer;
 import javax.swing.SwingWorker;
+
+import utils.ImageProcessor;
 
 public class ImageProcessingWorker extends SwingWorker<BufferedImage, Void> {
 
@@ -18,7 +19,7 @@ public class ImageProcessingWorker extends SwingWorker<BufferedImage, Void> {
     @Override
     protected BufferedImage doInBackground() throws Exception {
         // Processamento pesado acontece aqui
-        return util.ImageProcessor.invert(sourceImage);
+        return utils.ImageProcessor.invert(sourceImage);
     }
 
     @Override
