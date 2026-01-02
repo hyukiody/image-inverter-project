@@ -2,7 +2,7 @@ package com.imageapp.controller;
 
 import com.imageapp.service.BatchImageProcessor;
 import com.imageapp.service.ImageFiltersService;
-import com.imageapp.service.ImageInversionService;
+import com.imageapp.service.ImageProcessingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +17,16 @@ import java.util.*;
 @CrossOrigin(origins = "*")
 public class AdvancedImageController {
 
-    private final ImageInversionService inversionService;
+    private final ImageProcessingService imageProcessingService;
 
-    public AdvancedImageController(ImageInversionService inversionService) {
-        this.inversionService = inversionService;
+    public AdvancedImageController(ImageProcessingService imageProcessingService) {
+        this.imageProcessingService = imageProcessingService;
     }
 
     @PostMapping("/batch-process")
     public ResponseEntity<?> batchProcess(@RequestBody BatchImageProcessor.BatchRequest request) {
         try {
-            BatchImageProcessor.BatchResponse response = BatchImageProcessor.processBatch(request, null);
+            BatchImageProcessor.BatchResponse response = BatchImageProcessor.processBatch(request, imageProcessingService);
             return ResponseEntity.ok(response);
         } catch (IOException e) {
             return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
@@ -36,9 +36,9 @@ public class AdvancedImageController {
     @PostMapping("/filter/grayscale")
     public ResponseEntity<?> applyGrayscale(@RequestParam("file") MultipartFile file) {
         try {
-            BufferedImage img = inversionService.readImage(file.getBytes());
+            BufferedImage img = imageProcessingService.readImage(file.getBytes());
             BufferedImage filtered = ImageFiltersService.convertToGrayscale(img);
-            byte[] result = inversionService.writeImage(filtered, "png");
+            byte[] result = imageProcessingService.writeImage(filtered, "png");
             return ResponseEntity.ok(Map.of(
                 "status", "success",
                 "filter", "grayscale",
@@ -53,9 +53,9 @@ public class AdvancedImageController {
     public ResponseEntity<?> applyBlur(@RequestParam("file") MultipartFile file,
                                        @RequestParam(defaultValue = "5") int radius) {
         try {
-            BufferedImage img = inversionService.readImage(file.getBytes());
+            BufferedImage img = imageProcessingService.readImage(file.getBytes());
             BufferedImage filtered = ImageFiltersService.applyBlur(img, radius);
-            byte[] result = inversionService.writeImage(filtered, "png");
+            byte[] result = imageProcessingService.writeImage(filtered, "png");
             return ResponseEntity.ok(Map.of(
                 "status", "success",
                 "filter", "blur",
@@ -70,9 +70,9 @@ public class AdvancedImageController {
     public ResponseEntity<?> adjustBrightness(@RequestParam("file") MultipartFile file,
                                               @RequestParam(defaultValue = "1.0") float factor) {
         try {
-            BufferedImage img = inversionService.readImage(file.getBytes());
+            BufferedImage img = imageProcessingService.readImage(file.getBytes());
             BufferedImage filtered = ImageFiltersService.adjustBrightness(img, factor);
-            byte[] result = inversionService.writeImage(filtered, "png");
+            byte[] result = imageProcessingService.writeImage(filtered, "png");
             return ResponseEntity.ok(Map.of(
                 "status", "success",
                 "filter", "brightness",
@@ -87,9 +87,9 @@ public class AdvancedImageController {
     public ResponseEntity<?> adjustContrast(@RequestParam("file") MultipartFile file,
                                             @RequestParam(defaultValue = "1.0") float factor) {
         try {
-            BufferedImage img = inversionService.readImage(file.getBytes());
+            BufferedImage img = imageProcessingService.readImage(file.getBytes());
             BufferedImage filtered = ImageFiltersService.adjustContrast(img, factor);
-            byte[] result = inversionService.writeImage(filtered, "png");
+            byte[] result = imageProcessingService.writeImage(filtered, "png");
             return ResponseEntity.ok(Map.of(
                 "status", "success",
                 "filter", "contrast",
@@ -103,9 +103,9 @@ public class AdvancedImageController {
     @PostMapping("/filter/sharpen")
     public ResponseEntity<?> applySharpen(@RequestParam("file") MultipartFile file) {
         try {
-            BufferedImage img = inversionService.readImage(file.getBytes());
+            BufferedImage img = imageProcessingService.readImage(file.getBytes());
             BufferedImage filtered = ImageFiltersService.applySharpen(img);
-            byte[] result = inversionService.writeImage(filtered, "png");
+            byte[] result = imageProcessingService.writeImage(filtered, "png");
             return ResponseEntity.ok(Map.of(
                 "status", "success",
                 "filter", "sharpen"
