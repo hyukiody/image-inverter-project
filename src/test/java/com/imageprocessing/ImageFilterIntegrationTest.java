@@ -11,10 +11,13 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 
+import backend.ImageInverterApplication;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = ImageInverterApplication.class)
 @AutoConfigureMockMvc
 public class ImageFilterIntegrationTest {
 
@@ -77,7 +80,7 @@ public class ImageFilterIntegrationTest {
 
     @Test
     void testFiltersList() throws Exception {
-        mockMvc.perform(multipart("/api/images/filters"))
+        mockMvc.perform(get("/api/images/filters"))
             .andExpect(status().isOk());
     }
 }

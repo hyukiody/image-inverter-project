@@ -4,6 +4,7 @@ import com.imageapp.service.BatchImageProcessor;
 import com.imageapp.service.ImageFiltersService;
 import com.imageapp.service.ImageProcessingService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +27,35 @@ public class AdvancedImageController {
     @PostMapping("/batch-process")
     public ResponseEntity<?> batchProcess(@RequestBody BatchImageProcessor.BatchRequest request) {
         try {
+            BatchImageProcessor.BatchResponse response = BatchImageProcessor.processBatch(request, imageProcessingService);
+            return ResponseEntity.ok(response);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping(value = "/batch-process", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> batchProcessMultipart(@RequestParam("file") List<MultipartFile> files,
+                                                   @RequestParam("operation") String operation) {
+        try {
+            BatchImageProcessor.BatchRequest request = new BatchImageProcessor.BatchRequest();
+            request.operation = operation;
+
+            for (MultipartFile file : files) {
+                BatchImageProcessor.ImageData imageData = new BatchImageProcessor.ImageData();
+                imageData.id = file.getOriginalFilename();
+                imageData.imageBytes = file.getBytes();
+
+                String originalFilename = file.getOriginalFilename();
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    imageData.format = originalFilename.substring(originalFilename.lastIndexOf('.') + 1);
+                } else {
+                    imageData.format = "png";
+                }
+
+                request.images.add(imageData);
+            }
+
             BatchImageProcessor.BatchResponse response = BatchImageProcessor.processBatch(request, imageProcessingService);
             return ResponseEntity.ok(response);
         } catch (IOException e) {
